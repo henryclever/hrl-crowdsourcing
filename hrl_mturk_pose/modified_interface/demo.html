@@ -1,0 +1,134 @@
+<html>
+<head>
+<title>Bounding box annotator demo</title>
+<link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/themes/smoothness/jquery-ui.css" />
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/jquery-ui.js"></script>
+
+
+<script src="scripts/require.js"></script>
+</head>
+<body>
+
+<h1 class = "main_heading">Bounding box annotator demo2</h1>
+
+<div id="myDiv" style="display:inline-block"></div>
+<div style="display:inline-block;vertical-align:top;">
+  <div>
+    <textarea id="annotation_data" name="annotation" rows="30" cols="50" style="font-family:monospace;" readonly></textarea>
+  </div>
+
+  <div>
+    <input id="reset_button" type="reset" />
+  </div>
+  <div>
+    <input id="back_button" type="button" value="Back"/>
+  </div>
+
+</div>
+
+<iframe id="frmFile" src="test.txt" onload="LoadFile();" style="display: none;"></iframe>
+
+
+<script>
+
+
+require(['scripts/config'], function() {
+  require(['jquery_min','Plotly','bbox_annotator_mod', 'Buffer'], function (jquery_min, Plotly, bbox_annotator_mod, Buffer){
+
+      console.log('HELLO4');
+
+
+
+
+      var xValues = ['A', 'B', 'C', 'D', 'E'];
+
+      var yValues = ['V', 'W', 'X', 'Y', 'Z'];
+
+      var url_global
+
+      var zValues = [
+        [0.00, 0.1, 0.2, 0.3, 0.4],
+        [0.00, 0.00, 0.75, 0.75, 0.50],
+        [0.75, 0.75, 0.75, 0.75, 0.6],
+        [0.00, 0.00, 0.00, 0.75, 0.70],
+        [0.40, 0.65, 1.00, 0.9, 0.80]
+      ];
+
+      var colorscaleValue = [
+        [0, '#0000FF'],
+        [0.5, '#FFFFFF'],
+        [1, '#FF0000']
+      ];
+
+      var data = [{
+        x: xValues,
+        y: yValues,
+        z: zValues,
+        type: 'heatmap',
+        colorscale: colorscaleValue,
+        showscale: false
+      }];
+
+      var layout = {
+        title: 'Annotated Heatmap',
+        annotations: [],
+        width: 1,
+        height: 1,
+        xaxis: {
+          ticks: '',
+          side: 'top',
+          fixedrange: true
+        },
+        yaxis: {
+          ticks: '',
+          ticksuffix: ' ',
+          autosize: false,
+          fixedrange: true
+        }
+      };
+
+
+      // hide the modebar (hover bar) buttons, plotly logo. show plotly tooltips
+      var defaultPlotlyConfiguration = { modeBarButtonsToRemove: ['sendDataToCloud', 'autoScale2d', 'hoverClosestCartesian', 'hoverCompareCartesian', 'lasso2d', 'autoScale2d', 'toggleSpikelines', 'toImage', 'select2d','resetScale2d', 'zoom2d', 'zoomOut2d', 'zoomIn2d', 'pan2d'], displaylogo: false, showTips: true };
+      // display the plot in divId HTML element
+
+
+
+      $(document).ready(function() {
+        // Initialize the bounding-box annotator.
+        var annotator = new BBoxAnnotator({
+          url: "testplot.png",
+          input_method: 'fixed',    // Can be one of ['text', 'select', 'fixed']
+          labels: "object",
+          onchange: function(entries) {
+            // Input the text area on change. Use "hidden" input tag unless debugging.
+            // <input id="annotation_data" name="annotation_data" type="hidden" />
+            // $("#annotation_data").text(JSON.stringify(entries, null, "  "));
+            $("#annotation_data").val(JSON.stringify(entries)) //adds entries to the list
+          }
+        });
+
+
+        // Initialize the reset button.
+        $("#reset_button").click(function(e) {
+          annotator.clear_all();
+        })
+        // Initialize the back button.
+        $("#back_button").click(function(e) {
+          annotator.back_up();
+        })
+
+
+      });
+
+
+  });
+});
+
+</script>
+
+</body>
+</html>
+
+
