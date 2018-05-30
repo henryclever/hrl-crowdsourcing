@@ -11,8 +11,34 @@
       options.input_method || (options.input_method = "text");
       this.image_frame = image_frame;
       this.border_width = options.border_width || 2;
+      this.selectorB = $('<div class="bbox_selector"></div>');
+      this.image_frame.append(this.selectorB);
+      this.selectorB_r1 = $('<div class="bbox_selector"></div>');
+      this.image_frame.append(this.selectorB_r1);
+      this.selectorB_r2 = $('<div class="bbox_selector"></div>');
+      this.image_frame.append(this.selectorB_r2);
+      this.selectorB_r3 = $('<div class="bbox_selector"></div>');
+      this.image_frame.append(this.selectorB_r3);
+      this.selectorB_l1 = $('<div class="bbox_selector"></div>');
+      this.image_frame.append(this.selectorB_l1);
+      this.selectorB_l2 = $('<div class="bbox_selector"></div>');
+      this.image_frame.append(this.selectorB_l2);
+      this.selectorB_l3 = $('<div class="bbox_selector"></div>');
+      this.image_frame.append(this.selectorB_l3);
       this.selector = $('<div class="bbox_selector"></div>');
       this.image_frame.append(this.selector);
+      this.selector_r1 = $('<div class="bbox_selector"></div>');
+      this.image_frame.append(this.selector_r1);
+      this.selector_r2 = $('<div class="bbox_selector"></div>');
+      this.image_frame.append(this.selector_r2);
+      this.selector_r3 = $('<div class="bbox_selector"></div>');
+      this.image_frame.append(this.selector_r3);
+      this.selector_l1 = $('<div class="bbox_selector"></div>');
+      this.image_frame.append(this.selector_l1);
+      this.selector_l2 = $('<div class="bbox_selector"></div>');
+      this.image_frame.append(this.selector_l2);
+      this.selector_l3 = $('<div class="bbox_selector"></div>');
+      this.image_frame.append(this.selector_l3);
       this.create_label_box(options);
     }
 
@@ -92,10 +118,95 @@
     BBoxSelector.prototype.refresh = function() {
       var rect;
       rect = this.rectangle();
+      this.selectorB.css({
+          "position": "absolute",
+          "top": (rect.top - 6) + "px",
+          "left": (rect.left - 6 + 0) + "px",
+          "border": "6px solid #000",
+          "border-radius": "18px",
+      });
+      this.selectorB_r1.css({
+          "position": "absolute",
+          "top": (rect.top - 6) + "px",
+          "left": (rect.left - 6 + 323) + "px",
+          "border": "6px solid #000",
+          "border-radius": "18px",
+      });
+      this.selectorB_r2.css({
+          "position": "absolute",
+          "top": (rect.top - 6) + "px",
+          "left": (rect.left - 6 + 647) + "px",
+          "border": "6px solid #000",
+          "border-radius": "18px",
+      });
+      this.selectorB_r3.css({
+          "position": "absolute",
+          "top": (rect.top - 6) + "px",
+          "left": (rect.left - 6 + 970) + "px",
+          "border": "6px solid #000",
+          "border-radius": "18px",
+      });
+      this.selectorB_l1.css({
+          "position": "absolute",
+          "top": (rect.top - 6) + "px",
+          "left": (rect.left - 6 - 323) + "px",
+          "border": "6px solid #000",
+          "border-radius": "18px",
+      });
+      this.selectorB_l2.css({
+          "position": "absolute",
+          "top": (rect.top - 6) + "px",
+          "left": (rect.left - 6 - 647) + "px",
+          "border": "6px solid #000",
+          "border-radius": "18px",
+      });
+      this.selectorB_l3.css({
+          "position": "absolute",
+          "top": (rect.top - 6) + "px",
+          "left": (rect.left - 6 - 970) + "px",
+          "border": "6px solid #000",
+          "border-radius": "18px",
+      });
       this.selector.css({
         "border": 4 + "px dotted rgb(127,255,127)",
         "position": "absolute",
         left: (rect.left - 4) + 'px',
+        top: (rect.top - 4) + 'px',
+      });
+      this.selector_r1.css({
+        "border": 4 + "px dotted rgb(127,255,127)",
+        "position": "absolute",
+        left: (rect.left - 4 + 323) + 'px',
+        top: (rect.top - 4) + 'px',
+      });
+      this.selector_r2.css({
+        "border": 4 + "px dotted rgb(127,255,127)",
+        "position": "absolute",
+        left: (rect.left - 4 + 647) + 'px',
+        top: (rect.top - 4) + 'px',
+      });
+      this.selector_r3.css({
+        "border": 4 + "px dotted rgb(127,255,127)",
+        "position": "absolute",
+        left: (rect.left - 4 + 970) + 'px',
+        top: (rect.top - 4) + 'px',
+      });
+      this.selector_l1.css({
+        "border": 4 + "px dotted rgb(127,255,127)",
+        "position": "absolute",
+        left: (rect.left - 4 - 323) + 'px',
+        top: (rect.top - 4) + 'px',
+      });
+      this.selector_l2.css({
+        "border": 4 + "px dotted rgb(127,255,127)",
+        "position": "absolute",
+        left: (rect.left - 4 - 647) + 'px',
+        top: (rect.top - 4) + 'px',
+      });
+      this.selector_l3.css({
+        "border": 4 + "px dotted rgb(127,255,127)",
+        "position": "absolute",
+        left: (rect.left - 4 - 970) + 'px',
         top: (rect.top - 4) + 'px',
       });
     };
@@ -229,22 +340,27 @@
         this.entries.splice(0);
       }
       this.entries.push(entry);
-      box_element = $('<div class="annotated_bounding_box"></div>');
-      box_element.appendTo(this.image_frame).css({
-        "position": "absolute",
-        "top": (entry.top - 6) + "px",
-        "left": (entry.left - 6) + "px",
-        "border": "6px solid #000",
-        "border-radius": "18px",
-      });
-      box_element = $('<div class="annotated_bounding_box"></div>');
-      box_element.appendTo(this.image_frame).css({
-        "position": "absolute",
-        "top": (entry.top - 4) + "px",
-        "left": (entry.left - 4) + "px",
-        "border": "4px solid #FFF",
-        "border-radius": "18px",
-      });
+
+      var offsets = [-970, -647, -323, 0, 323, 647, 970];
+      var j;
+      for (j = 0; j < offsets.length; j++) {
+        box_element = $('<div class="annotated_bounding_box"></div>');
+        box_element.appendTo(this.image_frame).css({
+          "position": "absolute",
+          "top": (entry.top - 6) + "px",
+          "left": (entry.left - 6 + offsets[j]) + "px",
+          "border": "6px solid #000",
+          "border-radius": "18px",
+        });
+        box_element = $('<div class="annotated_bounding_box"></div>');
+        box_element.appendTo(this.image_frame).css({
+          "position": "absolute",
+          "top": (entry.top - 4) + "px",
+          "left": (entry.left - 4 + offsets[j]) + "px",
+          "border": "4px solid #FFF",
+          "border-radius": "18px",
+        });
+      };
     };
 
     BBoxAnnotator.prototype.clear_all = function(e) {
@@ -253,7 +369,10 @@
       return this.onchange(this.entries);
     };
     BBoxAnnotator.prototype.back_up = function(e) {
+      var i;
+      for (i = 0; i < 14; i++) {
       this.annotator_element.find(".annotated_bounding_box").last().detach();
+      }
       this.entries.splice(-1,1)
       return this.onchange(this.entries);
     };

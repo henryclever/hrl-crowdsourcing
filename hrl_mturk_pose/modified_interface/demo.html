@@ -32,66 +32,6 @@
 <script>
 
 
-
-console.log('HELLO4');
-
-
-
-
-var xValues = ['A', 'B', 'C', 'D', 'E'];
-
-var yValues = ['V', 'W', 'X', 'Y', 'Z'];
-
-var url_global
-
-var zValues = [
-  [0.00, 0.1, 0.2, 0.3, 0.4],
-  [0.00, 0.00, 0.75, 0.75, 0.50],
-  [0.75, 0.75, 0.75, 0.75, 0.6],
-  [0.00, 0.00, 0.00, 0.75, 0.70],
-  [0.40, 0.65, 1.00, 0.9, 0.80]
-];
-
-var colorscaleValue = [
-  [0, '#0000FF'],
-  [0.5, '#FFFFFF'],
-  [1, '#FF0000']
-];
-
-var data = [{
-  x: xValues,
-  y: yValues,
-  z: zValues,
-  type: 'heatmap',
-  colorscale: colorscaleValue,
-  showscale: false
-}];
-
-var layout = {
-  title: 'Annotated Heatmap',
-  annotations: [],
-  width: 1,
-  height: 1,
-  xaxis: {
-    ticks: '',
-    side: 'top',
-    fixedrange: true
-  },
-  yaxis: {
-    ticks: '',
-    ticksuffix: ' ',
-    autosize: false,
-    fixedrange: true
-  }
-};
-
-
-// hide the modebar (hover bar) buttons, plotly logo. show plotly tooltips
-var defaultPlotlyConfiguration = { modeBarButtonsToRemove: ['sendDataToCloud', 'autoScale2d', 'hoverClosestCartesian', 'hoverCompareCartesian', 'lasso2d', 'autoScale2d', 'toggleSpikelines', 'toImage', 'select2d','resetScale2d', 'zoom2d', 'zoomOut2d', 'zoomIn2d', 'pan2d'], displaylogo: false, showTips: true };
-// display the plot in divId HTML element
-
-
-
 $(document).ready(function() {
   // Initialize the bounding-box annotator.
   var annotator = new BBoxAnnotator({
